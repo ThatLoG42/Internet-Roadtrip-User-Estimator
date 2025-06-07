@@ -17,7 +17,7 @@ def onlineEstimate() -> tuple[float,float]:
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
         if (len(voteResults) > 3):
-            turnoutPercents = (3,5,8,10)
+            turnoutPercents = (3,5,8,10,12)
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent)
         else:
