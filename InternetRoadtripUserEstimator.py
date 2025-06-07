@@ -37,7 +37,8 @@ def onlineEstimate(info: requests.Response, type: Literal["mean","median"]) -> t
 def readableOE(info: requests.Response) -> None:
     estimates = {"Mean": onlineEstimate(info, "mean"), "Median": onlineEstimate(info, "median")}
     for label, estimate in estimates.items():
-        print(f"LoG42's {label}-based Actual Online Estimate (based on vote counts): {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online\n")
+        print(f"LoG42's {label}-based Actual Online Estimate (based on vote counts): {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online")
+    print("\n")
 
 
 # def set_interval(func, sec):
