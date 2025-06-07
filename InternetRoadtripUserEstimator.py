@@ -1,6 +1,7 @@
 import requests
 import json
 import statistics
+from scipy import stats
 # import threading
 
 def main() -> None:
@@ -24,7 +25,7 @@ def onlineEstimate() -> tuple[float,float]:
             turnoutPercents = (2,3,5,7,9)
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent) 
-    return (statistics.mean(estimates),statistics.stdev(estimates))
+    return (statistics.median(estimates),stats.median_abs_deviation(estimates))
 
 
 def readableOE() -> None:
