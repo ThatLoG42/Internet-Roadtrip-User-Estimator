@@ -26,14 +26,14 @@ def onlineEstimate():
             high = voteCount * 100/3
             mid = voteCount * 100/5
             low = voteCount * 100/7
-            ten = voteCount * 100/10
-            estimates += [two,low,mid,high,ten]  
+            nine = voteCount * 100/9
+            estimates += [two,low,mid,high,nine]  
     return (statistics.mean(estimates),statistics.stdev(estimates))
 
 
 def readableOE():
     estimate = onlineEstimate()
-    print(f"LoG42's Actual Online Estimate: {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online\n")
+    print(f"LoG42's Actual Online Estimate (based on vote counts): {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online\n")
 
 
 def set_interval(func, sec):
