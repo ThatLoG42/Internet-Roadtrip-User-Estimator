@@ -1,3 +1,2 @@
-# Internet-Roadtrip-Misc
-internet roadtrip misc
-has user estimate
+# Internet Roadtrip User Estimator
+This 
