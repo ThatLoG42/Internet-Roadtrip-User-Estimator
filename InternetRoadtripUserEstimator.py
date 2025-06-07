@@ -3,14 +3,12 @@ import json
 import statistics
 from scipy import stats
 from typing import Literal
-# import threading
 
 def main() -> None:
     info: requests.Response = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=20")
     reportedUserCount = json.loads(info.text)["results"][0]["totalUsers"]
     print(f"Reported User Count: {reportedUserCount} drivers online")
     readableOE(info)
-    # set_interval(readableOE,30)
 
 def onlineEstimate(info: requests.Response, type: Literal["mean","median"]) -> tuple[float,float]:
     estimates: list[float] = []
@@ -38,15 +36,5 @@ def readableOE(info: requests.Response) -> None:
     estimates = {"Mean": onlineEstimate(info, "mean"), "Median": onlineEstimate(info, "median")}
     for label, estimate in estimates.items():
         print(f"LoG42's {label}-based Actual Online Estimate (based on vote counts): {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online")
-    print("\n")
-
-
-# def set_interval(func, sec):
-#     def func_wrapper():
-#         set_interval(func, sec) 
-#         func()  
-#     t = threading.Timer(sec, func_wrapper)
-#     t.start()
-#     return t
 
 main()
