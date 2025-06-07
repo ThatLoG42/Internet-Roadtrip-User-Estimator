@@ -17,15 +17,17 @@ def onlineEstimate():
         voteCount = stop["voteCount"]
         if (len(voteResults) > 3):
             high = voteCount * 100/3
+            mid = voteCount * 100/5
             eight = voteCount * 100/8
             low = voteCount * 100/10
-            estimates += [high,eight,low]
+            estimates += [high,mid,eight,low]
         else:
             two = voteCount * 100/2
             high = voteCount * 100/3
+            mid = voteCount * 100/5
             low = voteCount * 100/7
             ten = voteCount * 100/10
-            estimates += [two,low,high,ten]  
+            estimates += [two,low,mid,high,ten]  
     return (statistics.mean(estimates),statistics.stdev(estimates))
 
 
