@@ -5,6 +5,7 @@ import threading
 
 def main():
     readableOE()
+    # set_interval(readableOE,30)
 
 def onlineEstimate():
     info = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=20")
@@ -36,12 +37,12 @@ def readableOE():
     print(f"LoG42's Actual Online Estimate (based on vote counts): {round(estimate[0],5)} ± {round(estimate[1],5)} drivers online\n")
 
 
-def set_interval(func, sec):
-    def func_wrapper():
-        set_interval(func, sec) 
-        func()  
-    t = threading.Timer(sec, func_wrapper)
-    t.start()
-    return t
+# def set_interval(func, sec):
+#     def func_wrapper():
+#         set_interval(func, sec) 
+#         func()  
+#     t = threading.Timer(sec, func_wrapper)
+#     t.start()
+#     return t
 
 main()
