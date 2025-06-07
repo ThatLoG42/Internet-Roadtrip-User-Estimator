@@ -1,7 +1,7 @@
 import requests
 import json
 import statistics
-import threading
+# import threading
 
 def main():
     readableOE()
