@@ -21,7 +21,7 @@ def onlineEstimate(info: requests.Response, type: Literal["mean","median"]) -> t
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent)
         else:
-            turnoutPercents = (2,3,3,3.5,4,5,7,9,12)
+            turnoutPercents = (2,2.5,3,3.5,4,5,7,9,12)
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent) 
     if type == "median":
