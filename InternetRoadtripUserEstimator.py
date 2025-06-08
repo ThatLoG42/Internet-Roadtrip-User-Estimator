@@ -15,21 +15,32 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
     stopJson = json.loads(info.text)
     stops: list = stopJson["results"]
     fwdStreak = 0
+    turnStreak = 0
     for stop in reversed(stops):
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
         if (len(voteResults) > 3):
-            if (fwdStreak >= 6):
+            turnStreak += 1
+            # checks for boredom level
+            if (fwdStreak >= 8):
+                turnoutPercents = (3,5,8,10)
+            elif (fwdStreak >= 6):
                 turnoutPercents = (3,5,8,10,11)
+            elif (fwdStreak >= 4):
+                turnoutPercents = (3,5,8,10,12)
             else:
-                turnoutPercents = (3,5,8,10,12,15)
+                turnoutPercents = (3,5,8,10,12,14)
             fwdStreak = 0
+            #checks for locked-in level
+            if (turnStreak >= 5):
+                turnoutPercents = (3,5,8,10,12,15,16)
+            elif (turnStreak >= 3):
+                turnoutPercents = (3,5,8,10,12,15)
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent)
         else:
             fwdStreak += 1
-
-            turnoutPercents: tuple
+            #checks bordeom level
             if fwdStreak >= 6:
                 turnoutPercents = (2,3,5,7,9)
             elif fwdStreak == 5:
