@@ -19,7 +19,7 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
         if (len(voteResults) > 3):
-            if (fwdStreak >= 5):
+            if (fwdStreak >= 6):
                 turnoutPercents = (3,5,8,10,11)
             else:
                 turnoutPercents = (3,5,8,10,12,15)
@@ -30,11 +30,11 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
             fwdStreak += 1
 
             turnoutPercents: tuple
-            if fwdStreak >= 5:
+            if fwdStreak >= 6:
                 turnoutPercents = (2,3,5,7,9)
-            elif fwdStreak == 4:
+            elif fwdStreak == 5:
                 turnoutPercents = (2,3,5,7,9,10)
-            elif fwdStreak == 3:
+            elif fwdStreak == 4:
                 turnoutPercents = (2,3,5,7,9,11)
             else:
                 turnoutPercents = (2,3,5,7,9,12)
