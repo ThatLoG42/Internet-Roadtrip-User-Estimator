@@ -10,23 +10,40 @@ def main() -> None:
     print(f"Reported User Count: {reportedUserCount} drivers online")
     readableOE(info)
 
-def onlineEstimate(info: requests.Response, type: Literal["mean","median"]) -> tuple[float,float]:
+def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) -> tuple[float,float]:
     estimates: list[float] = []
     stopJson = json.loads(info.text)
-    for stop in stopJson["results"]:
+    stops: list = stopJson["results"]
+    fwdStreak = 0
+    for stop in reversed(stops):
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
         if (len(voteResults) > 3):
-            turnoutPercents = (3,5,8,10,12,15)
+            if (fwdStreak >= 5):
+                turnoutPercents = (3,5,8,10,11)
+            else:
+                turnoutPercents = (3,5,8,10,12,15)
+            fwdStreak = 0
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent)
         else:
-            turnoutPercents = (2,3,5,7,9,12)
+            fwdStreak += 1
+
+            turnoutPercents: tuple
+            if fwdStreak >= 5:
+                turnoutPercents = (2,3,5,7,9)
+            elif fwdStreak == 4:
+                turnoutPercents = (2,3,5,7,9,10)
+            elif fwdStreak == 3:
+                turnoutPercents = (2,3,5,7,9,11)
+            else:
+                turnoutPercents = (2,3,5,7,9,12)
+            
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent) 
-    if type == "median":
+    if typeStat == "median":
         return (statistics.median(estimates),stats.median_abs_deviation(estimates))
-    elif type == "mean":
+    elif typeStat == "mean":
         return (statistics.mean(estimates),statistics.stdev(estimates))
     else:
         raise TypeError("Input must be either 'mean' or 'median'")
