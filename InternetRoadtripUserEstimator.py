@@ -19,7 +19,7 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
     for idx, stop in enumerate(reversed(stops)):
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
-        ## pre-check for boredom level based on first 80 of last 100 stops
+        ## pre-check for boredom level based on first n-20 of last n stops (n = 100 rn)
         if (idx < len(stops) - 20):
             if (len(voteResults) > 3):
                 turnStreak += 1
