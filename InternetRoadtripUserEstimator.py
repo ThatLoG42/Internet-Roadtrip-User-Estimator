@@ -5,7 +5,7 @@ from scipy import stats
 from typing import Literal
 
 def main() -> None:
-    info: requests.Response = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=20")
+    info: requests.Response = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=100")
     reportedUserCount = json.loads(info.text)["results"][0]["totalUsers"]
     print(f"Reported User Count: {reportedUserCount} drivers online")
     readableOE(info)
@@ -16,9 +16,16 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
     stops: list = stopJson["results"]
     fwdStreak = 0
     turnStreak = 0
-    for stop in reversed(stops):
+    for idx, stop in enumerate(reversed(stops)):
         voteResults: dict = json.loads(stop["voteCounts"])
         voteCount: int = stop["voteCount"]
+        ## pre-check for boredom level based on first 80 of last 100 stops
+        if (idx < len(stops) - 20):
+            if (len(voteResults) > 3):
+                turnStreak += 1
+            else:
+                fwdStreak += 1
+            continue
         if (len(voteResults) > 3):
             turnStreak += 1
             # checks for boredom level
