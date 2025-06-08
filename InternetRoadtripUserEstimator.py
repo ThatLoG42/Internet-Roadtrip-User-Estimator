@@ -29,19 +29,19 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
         if (len(voteResults) > 3):
             turnStreak += 1
             # checks for boredom level
-            if (fwdStreak >= 8):
+            if fwdStreak >= 8:
                 turnoutPercents = (3,5,8,10)
-            elif (fwdStreak >= 6):
+            elif fwdStreak >= 6:
                 turnoutPercents = (3,5,8,10,11)
-            elif (fwdStreak >= 4):
+            elif fwdStreak >= 4:
                 turnoutPercents = (3,5,8,10,12)
             else:
                 turnoutPercents = (3,5,8,10,12,14)
             fwdStreak = 0
             #checks for locked-in level
-            if (turnStreak >= 5):
+            if turnStreak >= 5:
                 turnoutPercents = (3,5,8,10,12,15,16)
-            elif (turnStreak >= 3):
+            elif turnStreak >= 3:
                 turnoutPercents = (3,5,8,10,12,15)
             for turnoutPercent in turnoutPercents:
                 estimates.append(voteCount*100/turnoutPercent)
