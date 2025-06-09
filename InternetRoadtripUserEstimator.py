@@ -24,7 +24,7 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
             if (len(voteResults) > 3):
                 turnStreak += 1
             else:
-                fwdStreak += 12
+                fwdStreak += 1
             continue
         if (len(voteResults) > 3):
             turnStreak += 1
