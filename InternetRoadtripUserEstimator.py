@@ -29,7 +29,12 @@ def onlineEstimate(info: requests.Response, typeStat: Literal["mean","median"]) 
         if (len(voteResults) > 3):
             turnStreak += 1
             # checks for boredom level
-            if fwdStreak >= 30:
+            if fwdStreak >= 60:
+                # turn alert
+                turnoutPercents = (3,5,8,9,10)
+            elif fwdStreak >= 40:
+                turnoutPercents = (3,5,8)
+            elif fwdStreak >= 30:
                 turnoutPercents = (3,5,8,9)
             elif fwdStreak >= 20:
                 turnoutPercents = (3,5,8,10)
