@@ -5,7 +5,7 @@ from scipy import stats
 from typing import Literal
 
 def main() -> None:
-    info: requests.Response = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=100")
+    info: requests.Response = requests.get("https://roadtrip.pikarocks.dev/queryTime?limit=250")
     reportedUserCount = json.loads(info.text)["results"][0]["totalUsers"]
     print(f"Reported User Count: {reportedUserCount} drivers online")
     readableOE(info)
