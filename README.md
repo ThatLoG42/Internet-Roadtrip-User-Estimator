@@ -1,2 +1,2 @@
 # Internet Roadtrip User Estimator
-This Python script takes the last 20 stops from the pikarocks API and uses the previous 100 vote counts to estimate the true count of users online. This was made with the purpose of estimating the true user count during a bot attack (which no longer affect voter count due to the captcha).
+This Python script takes the last 20 stops from the pikarocks API and uses the previous 250 vote counts to estimate the true count of users online. This was made with the purpose of estimating the true user count during a bot attack (which no longer affect voter count due to the captcha).
